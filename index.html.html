@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bikes</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= RESET ================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Google Sans", sans-serif;
+}
+
+body{
+  background:#f6f7f9;
+  color:#1a1a1a;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{
+  width:90%;
+  max-width:1280px;
+  margin:0 auto;
+}
+
+section{
+  margin:80px 0;
+}
+
+h1,h2{
+  font-weight:600;
+  letter-spacing:-0.5px;
+}
+
+h2{
+  font-size:32px;
+  margin-bottom:28px;
+}
+
+p{
+  font-size:16px;
+  line-height:1.6;
+  color:#555;
+}
+
+/* ================= FULL BANNER ================= */
+
+.carousel{
+  position:relative;
+  overflow:hidden;
+}
+
+.slides{
+  display:flex;
+  transition:transform .6s ease;
+}
+
+.slide{
+  min-width:100%;
+  aspect-ratio:1920/650;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.carousel button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(255,255,255,0.8);
+  border:none;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  backdrop-filter:blur(4px);
+}
+
+.carousel .prev{ left:20px; }
+.carousel .next{ right:20px; }
+
+/* ================= SCROLL CAROUSEL ================= */
+
+.carrossel,
+.vitrine-carousel{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding-bottom:6px;
+}
+
+.carrossel::-webkit-scrollbar,
+.vitrine-carousel::-webkit-scrollbar{
+  height:6px;
+}
+
+.carrossel::-webkit-scrollbar-thumb,
+.vitrine-carousel::-webkit-scrollbar-thumb{
+  background:#d0d0d0;
+  border-radius:6px;
+}
+
+.item-scroll{
+  min-width:190px;
+  height:120px;
+  background:linear-gradient(180deg,#ddb2fd,#dbc6f4);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:500;
+  box-shadow:0 4px 14px rgba(255, 254, 254, 0.05);
+  transition:.3s ease;
+}
+
+.item-scroll:hover{
+  transform:translateY(-4px);
+}
+
+.produto{
+  min-width:260px;
+  height:320px;
+  background:#fff;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  transition:.3s ease;
+}
+
+.produto:hover{
+  transform:translateY(-6px);
+}
+
+/* ================= MOSAICO ================= */
+
+.mosaico-sortimento{
+  display:flex;
+  gap:24px;
+}
+
+.mosaico-big,
+.mosaico-small{
+  border-radius:18px;
+  overflow:hidden;
+  background:#eee;
+}
+
+.mosaico-big{
+  flex:1;
+  aspect-ratio:16/18;
+}
+
+.mosaico-small{
+  width:100%;
+  aspect-ratio:16/9;
+}
+
+.mosaico-right{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+
+.mosaico-big img,
+.mosaico-small img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ================= DESTAQUE BIKE - CARROSSEL ================= */
+
+.destaque-bike{
+  position:relative;
+  overflow:hidden;
+  margin-top:80px;
+  text-align:left;
+}
+
+/* Track do carrossel */
+.carousel-track{
+  display:flex;
+  width:100%;
+  transition:transform .6s ease;
+}
+
+/* Cada slide ocupa 100% */
+.destaque-slide{
+  min-width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+  padding:40px 0;
+}
+
+/* IMAGEM ESQUERDA */
+.destaque-img{
+  flex:1;
+  max-width:520px;
+  height:420px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.destaque-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* TEXTO DIREITA */
+.destaque-texto{
+  flex:1;
+}
+
+.destaque-texto h1{
+  font-size:34px;
+  margin-bottom:18px;
+  font-weight:600;
+}
+
+.destaque-texto p{
+  font-size:18px;
+  line-height:1.8;
+  color:#555;
+}
+
+/* BOTÃO */
+.destaque-bike button{
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  background:#fff;
+  border:none;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+}
+
+.destaque-bike h2{
+  margin-bottom:09px; /* diminui o espaço abaixo do título */
+}
+
+.destaque-slide{
+  padding:10px 0; /* antes estava maior */
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:1024px){
+
+  .destaque-slide{
+    flex-direction:column;
+    text-align:center;
+    gap:30px;
+  }
+
+  .destaque-img{
+    width:100%;
+    height:auto;
+    aspect-ratio:16/12;
+  }
+
+  .destaque-texto{
+    max-width:600px;
+  }
+
+}
+
+/* ================= TEXTO COMO ESCOLHER A BIKE ================= */
+
+.box--title{
+  margin-top:100px;
+  margin-bottom:24px;
+}
+
+.box--title h1{
+  font-size:38px;   /* aumenta o título */
+}
+
+.box--title + p{
+  font-size:20px;   /* aumenta o texto */
+  line-height:1.8;
+  margin-bottom:18px;
+}
+
+.box--title + p + p{
+  font-size:20px;
+  line-height:1.8;
+  margin-bottom:40px; /* espaço entre o texto e o banner */
+}
+
+.box--title + p{
+  font-size:20px;
+  line-height:1.8;
+  margin-bottom:0;
+}
+
+.box--title + p + p{
+  font-size:20px;
+  line-height:1.8;
+  margin-top:0;
+}
+
+/* ================= TABELA BIKE ================= */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:60px 0;
+  font-size:17px;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+thead th{
+  padding:22px;
+  text-align:center;
+  color:#fff;
+  font-size:18px;
+  font-weight:600;
+}
+
+tbody td{
+  padding:20px;
+  text-align:center;
+  color:#fff;
+  font-weight:500;
+  position:relative;
+}
+
+/*CORES ROXO DEGRADÊ*/
+
+/* COLUNA 1 */
+.roxo-title-1,
+.roxo-1{
+  background:linear-gradient(180deg,#4b17b5,#3b1290);
+}
+
+/* COLUNA 2 */
+.roxo-title-2,
+.roxo-2{
+  background:linear-gradient(180deg,#7a2fff,#651fdb);
+}
+
+/* COLUNA 3 */
+.roxo-title-3,
+.roxo-3{
+  background:linear-gradient(180deg,#a546ed,#7b2ed8);
+}
+
+/* ================= LINHA DIVISÓRIA ================= */
+
+.linha{
+  height:1px;
+  width:60%;
+  background:rgba(0, 0, 0, 0.25);
+  margin:18px auto 0 auto;
+}
+
+/* ================= HOVER SUAVE ================= */
+
+tbody tr:hover td{
+  filter:brightness(1.08);
+  transition:.3s ease;
+}
+/* ================= INFO BIKE ================= */
+
+.box--title{
+  margin-top:80px;
+}
+
+.box--title h1{
+  font-size:34px;
+  margin-bottom:20px;
+}
+
+img{
+  max-width:100%;
+  border-radius:16px;
+}
+
+/* Força 3 colunas com mesma largura */
+table{
+  table-layout: fixed;
+}
+
+thead th,
+tbody td{
+  width: 33.33%;
+}
+
+/* Reduz espaço geral da seção */
+.box--title{
+  margin-top:50px;
+  margin-bottom:10px;
+}
+
+/* Parágrafos logo após o título */
+.box--title + p{
+  margin-bottom:8px;
+}
+
+.box--title + p + p{
+  margin-bottom:20px;
+}
+
+/* Reduz espaço antes da tabela */
+table{
+  margin:20px 0;
+}
+
+/* Texto após a tabela */
+table + .box--title2{
+  margin-top:30px;
+}
+
+table + .box--title2 + p{
+  margin-top:10px;
+  margin-bottom:20px;
+}
+
+/* BLOCO INFORMATIVO ANTES DA TABELA */
+
+.box--title + p,
+.box--title + p + p{
+  font-size:20px;
+  line-height:1.8;
+  font-weight:500;
+  background:linear-gradient(135deg, rgba(123,46,216,0.08), rgba(165,70,237,0.12));
+  padding:28px 32px;
+  border-radius:16px;
+  color:#4b17b5;
+  border-left:6px solid #7a2fff;
+  text-align:center; /* alinhado à esquerda */
+  margin:20px auto;/* remove centralização */
+}
+
+/* BLOCO INFORMATIVO APÓS A TABELA */
+table + .box--title2 + p{
+  font-size:20px;
+  line-height:1.8;
+  font-weight:500;
+  background:linear-gradient(135deg, rgba(123,46,216,0.08), rgba(165,70,237,0.12));
+  padding:28px 32px;
+  border-radius:16px;
+  color:#4b17b5;
+  margin:30px 0 20px 0;
+  border-left:6px solid #7a2fff;
+}
+
+/* Centraliza o texto informativo */
+table + .box--title2 + p{
+  text-align:center;
+}
+
+
+/* Imagem final */
+table + .box--title + p + img{
+  margin-top:30px;
+}
+
+/* ================= FILTRO ARO ================= */
+
+.filtro-aro{
+  margin:60px 0;
+  margin-bottom:60px;
+  
+}
+
+.filtro-titulo{
+  font-size:40px !important;
+  color:#7a2fff; /* roxo estilo Netshoes */
+}
+
+.filtro-botoes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:16px;
+}
+
+/* BOTÕES */
+.filtro-botoes a{
+  text-decoration:none;
+  padding:12px 28px;
+  border-radius:40px;
+  border:1.5px solid #ccc;
+  font-size:20px;
+  color:#333;
+  transition:all .4s ease;
+}
+
+/* HOVER DEGRADÊ ROXO NETSHOES */
+.filtro-botoes a:hover{
+  background:linear-gradient(135deg, #7a2fff, #a855f7);
+  color:#fff;
+  border-color:transparent;
+  box-shadow:0 8px 20px rgba(122,47,255,0.25);
+}
+
+/* COMPRE PELO ARO - Seção inteira centralizada */
+.filtro-aro{
+  margin:60px 0;
+  text-align:center;
+}
+
+/* Título */
+.filtro-titulo{
+  font-size:24px;
+  font-weight:600;
+  margin-bottom:25px;
+}
+
+/* Container dos botões */
+.filtro-botoes{
+  display:flex;
+  justify-content:center;  /* centraliza horizontalmente */
+  flex-wrap:wrap;
+  gap:16px;
+}
+
+/* ================= BANNER APP ================= */
+
+.banner-app{
+  height:220px;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:600;
+  background:linear-gradient(135deg,#a546ed,#6c2bd9);
+  color:#fff;
+  margin-top:60px;
+}
+
+/* ================= RESPONSIVO ================= */
+
+@media(max-width:1024px){
+
+  section{
+    margin:60px 0;
+  }
+
+  h2{
+    font-size:26px;
+  }
+
+  .mosaico-sortimento{
+    flex-direction:column;
+  }
+
+  .destaque-slide{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .destaque-img{
+    width:100%;
+    height:auto;
+    aspect-ratio:16/12;
+  }
+
+/* VITRINE DE MARCAS */
+.container section h2{
+  text-align:center;
+}
+
+}
+</style>
+
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const slides = document.querySelector('.slides');
+  const slide = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dots .dot');
+  const next = document.querySelector('.carousel .next');
+  const prev = document.querySelector('.carousel .prev');
+
+  let index = 0;
+
+  function showSlide(i) {
+    if (i >= slide.length) index = 0;
+    if (i < 0) index = slide.length - 1;
+
+    slides.style.transform = `translateX(-${index * 100}%)`;
+
+    dots.forEach(dot => dot.classList.remove('active'));
+    dots[index].classList.add('active');
+  }
+
+  next.addEventListener('click', () => {
+    index++;
+    showSlide(index);
+  });
+
+  prev.addEventListener('click', () => {
+    index--;
+    showSlide(index);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      index = i;
+      showSlide(index);
+    });
+  });
+
+  setInterval(() => {
+    index++;
+    showSlide(index);
+  }, 5000);
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  const track = document.querySelector('.carousel-track');
+  const slides = document.querySelectorAll('.destaque-slide');
+  const nextBtn = document.querySelector('.destaque-bike .next');
+  const prevBtn = document.querySelector('.destaque-bike .prev');
+
+if(nextBtn){
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % totalSlides;
+    updateCarousel();
+  });
+}
+
+if(prevBtn){
+  prevBtn.addEventListener('click', () => {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  });
+}
+
+  let index = 0;
+  const totalSlides = slides.length;
+
+  function updateCarousel() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % totalSlides;
+    updateCarousel();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    index = (index - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  });
+
+});
+</script>
+</head>
+
+<body>
+<!-- FULL BANNERS EM CARROSSEL -->
+  <section>
+
+  <section class="full-banner-section">
+  <div class="carousel">
+    <div class="slides">
+      <div class="slide">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/8494_1.png">
+      </div>
+
+      <div class="slide">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/5198_2.png">
+      </div>
+
+      <div class="slide">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/2616_3.png">
+      </div>
+
+      <div class="slide">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/3036_4.png">
+      </div>
+
+    </div>
+
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
+
+    <div class="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+</section>
+ 
+<div class="container">
+<!-- CARROSSEL CATEGORIAS -->
+  <section>
+    <h2 style="text-align: center;">Navegue pelas categorias</h2>
+    <div class="carrossel">
+      <div class="item-scroll">Moutain Bike</div>
+      <div class="item-scroll">Speed</div>
+      <div class="item-scroll">Elétrica</div>
+      <div class="item-scroll">Infantil</div>
+      <div class="item-scroll">Urbana</div>
+      <div class="item-scroll">Downhill</div>
+      <div class="item-scroll">Freeride</div>
+    </div>
+  </section>
+
+  <!-- VITRINE LANÇAMENTOS -->
+    <section>
+    <h2 style="text-align: center;">Conheça as novidades</h2>
+    <div class="vitrine-carousel">
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+    </div>
+  </section>
+
+  <!-- MOSAICO EXPLORE SORTIMENTO -->
+  <section>
+    <h2 style="text-align: center;">Explore o sortimento</h2>
+    
+    <div class="mosaico-sortimento">
+
+  <!-- ESQUERDA (GRANDE) -->
+      <div class="mosaico-big"> 
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/1503_Banner_mosaico_1.png" alt="vestuário">
+      </div>
+
+  <!-- DIREITA (2 pequenos) -->
+  <div class="mosaico-right">
+    <div class="mosaico-small">
+      <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/2421_Banner_Mosaico_2.png" alt="óculos">
+    </div>
+    <div class="mosaico-small">
+      <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/7126_Banner_Mosaico_3.png" alt="capacetes">
+    </div>
+  </div>
+</div>
+  </section>
+
+</section>
+<div class="container">
+  <!-- CARROSSEL MARCAS -->
+  <section>
+    <h2 style="text-align: center;">Conheça nossas marcas</h2>
+    <div class="carrossel">
+      <div class="item-scroll">Caloi</div>
+      <div class="item-scroll">Sense Bike</div>
+      <div class="item-scroll">Oggi Bikes</div>
+      <div class="item-scroll">Audax</div>
+      <div class="item-scroll">Soul Cycles</div>
+      <div class="item-scroll">GTS</div>
+      <div class="item-scroll">Rava</div>
+    </div>
+  </section>
+  </div>
+
+  <div class="container">
+  
+    <!-- DESTAQUE BIKE -->
+<div class="container">
+<section class="destaque-bike">
+
+<h2>Saiba mais sobre os modelos</h2>
+
+<div class="carousel-track">
+
+    <!--Bike 1-->
+    <div class="destaque-slide">
+      <div class="destaque-img">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/8575_Bike_01.png">
+      </div>
+      <div class="destaque-texto">
+        <h1>Mountain Bike</h1>
+        <p>
+        A mountain bike (MTB) é um tipo de bicicleta criada
+        para trilhas e terrenos irregulares.
+        </p>
+      </div>
+    </div>
+
+     <!--Bike 2-->
+   <div class="destaque-slide">
+      <div class="destaque-img">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/604_Bike_02.png">
+      </div>
+      <div class="destaque-texto">
+        <h1>Trail Bike</h1>
+        <p>
+        Trail bike é um tipo de mountain bike (MTB) feita
+        para trilhas variadas.
+        Ela é equilibrada, sobe bem,
+        desce com estabilidade e encara terrenos técnicos
+        com conforto
+        </p>
+      </div>
+    </div>
+
+     <!--Bike 3-->
+    <div class="destaque-slide">
+      <div class="destaque-img">
+        <img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-25/757_Bike_03.png">
+      </div>
+      <div class="destaque-texto">
+        <h1>Infantil</h1>
+        <p>
+        Bike infantil é uma bicicleta desenvolvida
+        especialmente para crianças, com tamanho e estrutura
+        adaptados à idade e altura.
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="next">❯</button>
+</section>
+</div>
+
+<!-- FILTRO POR ARO -->
+<section class="filtro-aro">
+
+  <p class="filtro-titulo">Compre pelo aro</p>
+
+  <div class="filtro-botoes">
+    <a href="#">12</a>
+    <a href="#">14</a>
+    <a href="#">16</a>
+    <a href="#">20</a>
+    <a href="#">24</a>
+    <a href="#">26</a>
+    <a href="#">29</a>
+  </div>
+</section>
+
+<!-- VITRINE -->
+<section>
+    <h2 style="text-align: center;">Acessórios para seu esporte</h2>
+    <div class="vitrine-carousel">
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+      <div class="produto">Produto</div>
+    </div>
+  </section>
+ 
+  <!-- ESPAÇO INFORMATIVO -->
+
+<div class="box--title">
+<h1>Como escolher a sua bike</h1>
+</div>
+<p>É importante considerar as informações abaixo na hora de
+  escolher o tamanho da <strong>bike ideal para você.</strong>
+</p>
+<p>Leve em conta a <strong>sua altura</strong> e lembre-se:<br>
+  O quadro influencia o comprimento da bike, enquanto o aro influencia na
+  altura em relação ao solo.
+</p>
+
+<table>
+<thead>
+<th class="roxo-title-1">Altura Média <span>(M)</span></th>
+<th class="roxo-title-2">Mountain Bike / Urbana<br />
+<span>Tamanho do Quadro (pol)</span>
+</th>
+<th class="roxo-title-3">Speed<br />
+<span>Tamanho do Quadro (cm)</span>
+</th>
+</thead>
+<tbody>
+<tr>
+<td class="roxo-1">1,50 a 1,60
+<div class="linha"></div>
+</td>
+<td class="roxo-2">14
+<div class="linha"></div>
+</td>
+<td class="roxo-3">48
+<div class="linha"></div>
+</td>
+</tr>
+<tr>
+<td class="roxo-1">1,60 a 1,70
+<div class="linha"></div>
+</td>
+<td class="roxo-2">16
+<div class="linha"></div>
+</td>
+<td class="roxo-3">50, 52, 54
+<div class="linha"></div>
+</td>
+</tr>
+<tr>
+<td class="roxo-1">1,70 a 1,80
+<div class="linha"></div>
+</td>
+<td class="roxo-2">17 ou 18
+<div class="linha"></div>
+</td>
+<td class="roxo-3">54, 55, 56
+<div class="linha"></div>
+</td>
+</tr>
+<tr>
+<td class="roxo-1">1,80 a 1,90
+<div class="linha"></div>
+</td>
+<td class="roxo-2">19 ou 20
+<div class="linha"></div>
+</td>
+<td class="roxo-3">57, 58
+<div class="linha"></div>
+</td>
+</tr>
+<tr>
+<td class="roxo-1">1,90</td>
+<td class="roxo-2">21 ou 22</td>
+<td class="roxo-3">60, 62</td>
+</tr>
+</tbody>
+</table>
+
+<div class="box--title2">
+</div>
+<p>
+Para ser mais assertivo na sua escolha, siga a orientação abaixo de multiplicação pela altura do cavalo.<br>
+Esse cálculo previne que os joelhos colidam com o guidão e sejam proporcionais ao quadro da bike, tá?
+</p> 
+
+<img src="https://static.netshoes.com.br/bnn/l_netshoes/2026-02-28/9690_Design%2520sem%2520nome.png" alt="texto informativo">
+
+<!-- BANNER APP -->
+  <section>
+    <div class="banner-app">
+      Baixe o App e aproveite ofertas exclusivas
+    </div>
+  </section>
+</div>
+</body>
+</html>
